@@ -10,11 +10,11 @@ export default class Input {
     });
   }
 
-  isPressed(key) {
+  isKeyPressed(key) {
     return this.keyDownMap[key];
   }
 
-  onPress(key, handler) {
+  onKeyPress(key, handler) {
     window.addEventListener("keypress", e => {
       if (e.key === key) {
         handler();
