@@ -14,7 +14,7 @@ export default class Input {
     return this.keyDownMap[key];
   }
 
-  onKeyPress(key, handler) {
+  onKeyPress(key: string, handler: CallableFunction) {
     window.addEventListener("keypress", e => {
       if (e.key === key) {
         handler();
