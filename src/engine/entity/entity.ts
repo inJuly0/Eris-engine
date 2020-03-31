@@ -1,5 +1,5 @@
-import Vector2 from "../vector/vector";
-import GraphicsComponent from "../graphics/GraphicsComponent";
+import Vector2 from "../vector/vector.js";
+import GraphicsComponent from "../graphics/GraphicsComponent.js";
 
 export default class Entity {
   pos: Vector2;
