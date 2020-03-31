@@ -1,4 +1,5 @@
 import Vector2 from "../vector./vector";
+import GraphicsComponent from "../graphics/GraphicsComponent";
 
 export default class Entity {
   pos: Vector2;
@@ -6,16 +7,22 @@ export default class Entity {
   width: number;
   height: number;
   colliderMasks: object[];
-  
+  anim: GraphicsComponent;
+
   constructor(x: number, y: number, width: number, height: number) {
     this.pos = new Vector2(x, y);
     this.vel = new Vector2(0, 0);
     this.width = width;
     this.height = height;
-    this.colliderMasks = [];
   }
 
-  
+  initSprite(image: HTMLImageElement): void {
+    this.anim = new GraphicsComponent(this, image);
+  }
 
-  update() {}
+  initPhysics() {}
+
+  update(ctx: CanvasRenderingContext2D): void {
+    this.anim.update(ctx);
+  }
 }
