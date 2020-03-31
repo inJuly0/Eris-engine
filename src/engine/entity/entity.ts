@@ -1,4 +1,4 @@
-import Vector2 from "../vector./vector";
+import Vector2 from "../vector/vector";
 import GraphicsComponent from "../graphics/GraphicsComponent";
 
 export default class Entity {

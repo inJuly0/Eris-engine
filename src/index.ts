@@ -4,4 +4,5 @@ const scene1 = new Eris.Scene();
 const game = new Eris.Game();
 const input = new Eris.Input();
 
+console.log(Eris.Vector2.DOWN)
 
