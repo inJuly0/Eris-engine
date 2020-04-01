@@ -34,7 +34,7 @@ export default class Scene {
   loop(): void {
     for (let entity of this.entities) entity.update(this.ctx);
   }
-
+  
   setContext(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
   }

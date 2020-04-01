@@ -1,12 +1,21 @@
 import Scene from "../scene/scene.js";
+import Input from "../input/Input.js";
+
+interface gameConfig {
+  width: number;
+  height: number;
+  scenes?: Scene[];
+  input?: Input;
+}
 
 export default class Game {
-  config: { width: number; height: number; scenes?: Scene[] };
+  config: gameConfig;
   parent: HTMLElement;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   scenes: Scene[];
   currentScene: Scene;
+  input: Input;
   constructor(
     config = { width: 480, height: 320, scenes: [] },
     parent = document.body
@@ -20,7 +29,7 @@ export default class Game {
     this.canvas = document.createElement("canvas");
     this.canvas.setAttribute("width", config.width.toString());
     this.canvas.setAttribute("height", config.height.toString());
-    parent.appendChild(this.canvas); 
+    parent.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
   }
 
@@ -29,7 +38,7 @@ export default class Game {
     this.scenes.push(scene);
   }
 
-  run() {
+  run():void {
     this.currentScene = this.scenes[0];
     if (this.currentScene) this.currentScene.update();
   }

@@ -18,7 +18,7 @@ export default class Vector2 {
     this.y += vec.y;
   }
 
-  sub(vec: Vector2) {
+  sub(vec: Vector2): void {
     this.x -= vec.x;
     this.y -= vec.y;
   }
@@ -28,7 +28,7 @@ export default class Vector2 {
     this.y *= num;
   }
 
-  div(num: number) {
+  div(num: number): void {
     this.x /= num;
     this.y /= num;
   }
