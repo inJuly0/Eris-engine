@@ -1,5 +1,6 @@
 import Entity from "../entity/entity";
 import Game from "../game/game";
+import Group from "./groups.js";
 
 export default class Scene {
   name: string; // name so that the scene can be referenced later
@@ -11,10 +12,14 @@ export default class Scene {
   lag: number; // lag between the previous and current render
   active: boolean;
   private parentGame: Game;
+  group: Group;
 
   constructor(name: string) {
     this.name = name;
     this.entities = [];
+    this.group = new Group();
+
+
     this.previous = Date.now();
     this.lag = 0;
     this.MS_PER_FRAME = 16;
@@ -37,6 +42,10 @@ export default class Scene {
 
   setParentGame(game: Game): void {
     this.parentGame = game;
+  }
+
+  clearScreen():void{
+    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 
   create(): void {}
