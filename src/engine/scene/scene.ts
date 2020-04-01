@@ -8,6 +8,7 @@ export default class Scene {
   readonly MS_PER_FRAME: number;
   previous: number;
   lag: number;
+  active: boolean;
 
   constructor(name: string) {
     this.name = name;
@@ -15,7 +16,8 @@ export default class Scene {
     this.previous = Date.now();
     this.lag = 0;
     this.MS_PER_FRAME = 16;
-    this.update = () => {
+    this.active = true;
+    this.update = (): void => {
       let current: number = Date.now();
       let elapsed = current - this.previous;
       this.previous = current;
@@ -25,7 +27,7 @@ export default class Scene {
         this.loop();
         this.lag -= this.MS_PER_FRAME;
       }
-      requestAnimationFrame(this.update);
+      if (this.active) requestAnimationFrame(this.update);
     };
   }
 

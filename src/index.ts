@@ -1,6 +1,5 @@
 import Eris from "./engine/eris.js";
 import Entity from "./engine/entity/entity.js";
-import Scene from "./engine/scene/scene.js";
 
 const game = new Eris.Game();
 const input = new Eris.Input();

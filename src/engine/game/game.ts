@@ -20,7 +20,7 @@ export default class Game {
     this.canvas = document.createElement("canvas");
     this.canvas.setAttribute("width", config.width.toString());
     this.canvas.setAttribute("height", config.height.toString());
-    parent.appendChild(this.canvas);
+    parent.appendChild(this.canvas); 
     this.ctx = this.canvas.getContext("2d");
   }
 
@@ -29,11 +29,8 @@ export default class Game {
     this.scenes.push(scene);
   }
 
-
-  run(){
+  run() {
     this.currentScene = this.scenes[0];
-    if(this.currentScene)
-      this.currentScene.update()
+    if (this.currentScene) this.currentScene.update();
   }
-
 }
