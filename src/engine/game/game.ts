@@ -1,11 +1,9 @@
 import Scene from "../scene/scene.js";
-import Input from "../input/Input.js";
 
 interface gameConfig {
   width: number;
   height: number;
-  scenes?: Scene[];
-  input?: Input;
+  scenes?: Map<string, Scene>;
 }
 
 export default class Game {
@@ -13,19 +11,20 @@ export default class Game {
   parent: HTMLElement;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
-  scenes: Scene[];
   currentScene: Scene;
-  input: Input;
+  scenes: Map<string, Scene>;
   constructor(
-    config = { width: 480, height: 320, scenes: [] },
+    config = { width: 480, height: 320, scenes: new Map<string, Scene>() },
     parent = document.body
   ) {
     this.config = config;
+    this.scenes = new Map<string, Scene>();
     if (config.scenes) {
-      this.currentScene = config.scenes[0];
-      for (let scene of config.scenes) scene.setContext(this.ctx);
+      for (let key in config.scenes) {
+        this.addScene(key, config.scenes.get(key));
+      }
     }
-    this.scenes = config.scenes || [];
+
     this.canvas = document.createElement("canvas");
     this.canvas.setAttribute("width", config.width.toString());
     this.canvas.setAttribute("height", config.height.toString());
@@ -33,13 +32,17 @@ export default class Game {
     this.ctx = this.canvas.getContext("2d");
   }
 
-  addScene(scene: Scene): void {
+  addScene(key: string, scene: Scene): void {
     scene.setContext(this.ctx);
-    this.scenes.push(scene);
+    scene.setParentGame(this);
+    this.scenes.set(key, scene);
   }
 
-  run():void {
-    this.currentScene = this.scenes[0];
-    if (this.currentScene) this.currentScene.update();
+  play(key: string) {
+    let tempScene = this.scenes.get(key);
+    if(!tempScene) return;
+    this.currentScene = tempScene;
+    tempScene.create();
+    tempScene.update();      
   }
 }
