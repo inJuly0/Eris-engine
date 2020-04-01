@@ -1,13 +1,12 @@
-import Entity from "../entity/entity";
+// import Entity from "../entity/entity";
 
-export default class PhysicsComponent{
-    parent: object;
-    constructor(parent){
-        this.parent = parent;
-    }
+// export default class PhysicsComponent {
+//   parent: Entity | any;
+//   constructor(parent) {
+//     this.parent = parent;
+//   }
 
-    update(): void{
-        
-    }
-
-}
+//   update(): void {
+//     this.parent.position.add(this.parent.velocity);
+//   }
+// }
