@@ -1,5 +1,6 @@
 import Vector2 from "../vector/vector.js";
 import GraphicsComponent from "../graphics/GraphicsComponent.js";
+import Collider from "../physics/Collider.js";
 
 export default class Entity {
   pos: Vector2;
@@ -9,6 +10,7 @@ export default class Entity {
   _colliderMasks: object[];
   anim: GraphicsComponent;
   _groupKeys: string[];
+  collider: Collider;
 
   constructor(x: number, y: number) {
     this.pos = new Vector2(x, y);

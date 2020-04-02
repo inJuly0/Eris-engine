@@ -5,7 +5,7 @@ interface spriteData {
 }
 
 interface animationData {
-  begin: number;
+  start: number;
   end: number;
   count: number;
   loop?: boolean;
