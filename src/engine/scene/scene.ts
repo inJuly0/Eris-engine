@@ -43,7 +43,7 @@ export default class Scene {
             this.group.forEach(value, ent2 => {
               if(Collider.collision(ent, ent2)){
                 const dir = Collider.getCollisionDirection(ent, ent2);
-                console.log(dir)
+
                 switch(dir){
                   case 'top':
                     ent.pos.y = ent2.collider.top() - ent.collider.height;
