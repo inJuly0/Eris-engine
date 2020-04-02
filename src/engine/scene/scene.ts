@@ -1,6 +1,7 @@
-import Entity from "../entity/entity";
+import Entity from "../entity/entity.js";
 import Game from "../game/game";
 import Group from "./groups.js";
+import Collider from "../physics/Collider.js";
 
 export default class Scene {
   name: string; // name so that the scene can be referenced later
@@ -13,13 +14,13 @@ export default class Scene {
   active: boolean;
   private parentGame: Game;
   group: Group;
-  private _collisionMasks: Map<string|Entity,  any[]>;
+  private _collisionMasks: Map<string, string>;
 
   constructor(name: string) {
     this.name = name;
     this.entities = [];
-    this.group = new Group();
-    this._collisionMasks = new Map<string|Entity, any[]>();
+    this.group = new Group(this);
+    this._collisionMasks = new Map<string, string>();
 
     // The update loop of the game, called 60 times a second
     // TODO: make the FPS user controllable.
@@ -37,20 +38,39 @@ export default class Scene {
 
       while (this.lag > this.MS_PER_FRAME) {
         this.loop();
+        this._collisionMasks.forEach((value, key) => {
+          this.group.forEach(key, ent => {
+            this.group.forEach(value, ent2 => {
+              if(Collider.collision(ent, ent2)){
+                const dir = Collider.getCollisionDirection(ent, ent2);
+                console.log(dir)
+                switch(dir){
+                  case 'top':
+                    ent.pos.y = ent2.collider.top() - ent.collider.height;
+                    break;
+                  case 'left':
+                    ent.pos.x = ent2.collider.left() - ent.collider.width;
+                    break;
+                  case 'bottom':
+                    ent.pos.y = ent2.collider.bottom();
+                    break;
+                  case 'right':
+                    ent.pos.x = ent2.collider.right();
+                    break;
+                }
+              }
+            });
+          });
+        });
         this.lag -= this.MS_PER_FRAME;
       }
       if (this.active) requestAnimationFrame(this.update);
     };
   }
 
-
-  setCollision(key: string | Entity, val: string | Entity): void{
-    if(this._collisionMasks.has(key)){
-      this._collisionMasks.get(key).push(val);
-    }else{
-      this._collisionMasks.set(key, [val]);
-    }
-  }   
+  setCollision(key: string , val: string ): void {
+    this._collisionMasks.set(key, val);
+  }
 
   // the loop and create functions are typically overridden by the user
 

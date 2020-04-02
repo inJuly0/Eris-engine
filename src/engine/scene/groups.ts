@@ -1,9 +1,10 @@
 import Entity from "../entity/entity";
+import Scene from "./scene";
 
 export default class Group {
   readonly map: Map<string, Entity[]>;
 
-  constructor() {
+  constructor(scene: Scene) {
     this.map = new Map<string, Entity[]>();
   }
 

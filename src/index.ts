@@ -1,12 +1,13 @@
 import Eris from "./engine/eris.js";
 import Entity from "./engine/entity/entity.js";
 import Vector2 from "./engine/vector/vector.js";
+import Collider from "./engine/physics/Collider.js";
 
 const game = new Eris.Game();
 const input = new Eris.Input();
 
 const spriteSheet = document.getElementById("sprite") as HTMLImageElement;
-const enemySprite = document.getElementById('enemy-sprite') as HTMLImageElement;
+const enemySprite = document.getElementById("enemy-sprite") as HTMLImageElement;
 console.log(spriteSheet.height);
 
 class TestScene extends Eris.Scene {
@@ -22,20 +23,26 @@ class TestScene extends Eris.Scene {
   }
 
   create() {
-    this.player = new Eris.Entity(50, 50);;
+    this.player = new Eris.Entity(50, 50);
     this.player.initSprite(spriteSheet);
     this.initPlayerAnims();
     this.group.newGroup("enemies");
+    this.group.newGroup("player");
+    this.group.add('player', this.player);
     this.spawnEnemy();
     this.ctx.scale(3, 3);
-    console.log(this.group.get('enemies'))
+    this.player.addCollider(16, 16);
+    this.setCollision('player', 'enemies');
+    console.log(this.group.get("enemies"));
   }
 
   loop() {
     this.clearScreen();
     this.movementLoop();
     this.animLoop();
-    this.group.forEach('enemies', e => e.update(this.ctx));
+    this.group.forEach("enemies", e => {
+      e.update(this.ctx);
+    });
     this.player.update(this.ctx);
   }
 
@@ -77,14 +84,14 @@ class TestScene extends Eris.Scene {
     this.player.anim.play(anim);
   }
 
-  spawnEnemy(){
+  spawnEnemy() {
     const enemy = new Entity(70, 70);
+    enemy.addCollider(16, 16);
     enemy.initSprite(enemySprite);
-    enemy.anim.add('idle', 0, 0, 16, 16, 1, false);
-    enemy.anim.play('idle');
-    this.group.add('enemies', enemy);
+    enemy.anim.add("idle", 0, 0, 16, 16, 1, false);
+    enemy.anim.play("idle");
+    this.group.add("enemies", enemy);
   }
-
 }
 
 const scene1 = new TestScene("demo");
