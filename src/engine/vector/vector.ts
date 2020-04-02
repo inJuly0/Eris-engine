@@ -35,6 +35,10 @@ export default class Vector2 {
     return Math.sqrt(this.x * this.x + this.y * this.y);
   }
 
+  equals(vec: Vector2): boolean {
+    return vec.x == this.x && vec.y == this.y;
+  }
+
   static mult(vec: Vector2, num: number){
     const temp = new Vector2(vec.x, vec.y);
     temp.mult(num);

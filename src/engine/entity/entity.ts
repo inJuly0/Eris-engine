@@ -6,7 +6,7 @@ export default class Entity {
   vel: Vector2;
   width: number;
   height: number;
-  colliderMasks: object[];
+  _colliderMasks: object[];
   anim: GraphicsComponent;
   _groupKeys: string[];
 

@@ -11,6 +11,7 @@ interface frameSet {
   direction?: string;
 }
 
+
 export default class GraphicsComponent {
   spriteSheet: HTMLImageElement;
   frameSets: Map<string, frameSet>;
@@ -41,6 +42,7 @@ export default class GraphicsComponent {
     this.frameSets.set(name, { x, y, width, height, count, loop, delay : delay, direction });
   }
 
+
   update(ctx: CanvasRenderingContext2D): void {
 
     if(!this.currentFrameSet) return;
@@ -60,7 +62,7 @@ export default class GraphicsComponent {
   show(ctx: CanvasRenderingContext2D) {
     // TODO: extend  this so it can draw both vertically and horizontally
     ctx.drawImage(
-      this.spriteSheet,
+      this.spriteSheet as HTMLImageElement,
       this.currentFrameSet.x + this.frameIndex * this.currentFrameSet.width,
       this.currentFrameSet.y,
       this.currentFrameSet.width,

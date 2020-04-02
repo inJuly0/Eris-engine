@@ -20,4 +20,10 @@ export default class Group {
   get(key: string): Entity[] {
     return this.map.get(key);
   }
+
+  forEach(key:string , callback: CallableFunction): void{
+    if(!this.map.has(key)) return;
+    for(let ent of this.map.get(key)) callback(ent);
+  }
+
 }

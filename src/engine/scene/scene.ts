@@ -6,13 +6,13 @@ export default class Scene {
   name: string; // name so that the scene can be referenced later
   entities: Entity[]; // entities specific to this scene
   ctx: CanvasRenderingContext2D;
-  update: any;
+  update: FrameRequestCallback;
   readonly MS_PER_FRAME: number; // Milliseconds each frame lasts
   previous: number; // last time the scene was rendered
   lag: number; // lag between the previous and current render
   active: boolean;
   private parentGame: Game;
-  group : Group;
+  group: Group;
   private _collisionMasks: Map<string|Entity,  any[]>;
 
   constructor(name: string) {
