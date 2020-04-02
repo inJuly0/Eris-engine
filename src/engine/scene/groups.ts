@@ -14,6 +14,7 @@ export default class Group {
   add(key: string, ent: Entity): void {
     if (!this.map.has(key)) this.map.set(key, []);
     this.map.get(key).push(ent);
+    ent._groupKeys.push(key);
   }
 
   get(key: string): Entity[] {

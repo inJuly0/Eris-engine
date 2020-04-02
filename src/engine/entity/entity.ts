@@ -8,9 +8,11 @@ export default class Entity {
   height: number;
   colliderMasks: object[];
   anim: GraphicsComponent;
+  _groupKeys: string[];
 
   constructor(x: number, y: number) {
     this.pos = new Vector2(x, y);
+    this._groupKeys = [];
   }
 
   initSprite(image: HTMLImageElement): void {
@@ -22,4 +24,9 @@ export default class Entity {
   update(ctx: CanvasRenderingContext2D): void {
     this.anim.update(ctx);
   }
+
+  move(vel: Vector2){
+    this.pos.add(vel);
+  }
+
 }

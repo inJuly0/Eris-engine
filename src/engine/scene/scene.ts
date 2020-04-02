@@ -12,18 +12,23 @@ export default class Scene {
   lag: number; // lag between the previous and current render
   active: boolean;
   private parentGame: Game;
-  group: Group;
+  group : Group;
+  private _collisionMasks: Map<string|Entity,  any[]>;
 
   constructor(name: string) {
     this.name = name;
     this.entities = [];
     this.group = new Group();
+    this._collisionMasks = new Map<string|Entity, any[]>();
 
+    // The update loop of the game, called 60 times a second
+    // TODO: make the FPS user controllable.
 
     this.previous = Date.now();
     this.lag = 0;
     this.MS_PER_FRAME = 16;
     this.active = true;
+
     this.update = (): void => {
       let current: number = Date.now();
       let elapsed = current - this.previous;
@@ -38,13 +43,22 @@ export default class Scene {
     };
   }
 
+
+  setCollision(key: string | Entity, val: string | Entity): void{
+    if(this._collisionMasks.has(key)){
+      this._collisionMasks.get(key).push(val);
+    }else{
+      this._collisionMasks.set(key, [val]);
+    }
+  }   
+
   // the loop and create functions are typically overridden by the user
 
   setParentGame(game: Game): void {
     this.parentGame = game;
   }
 
-  clearScreen():void{
+  clearScreen(): void {
     this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 
